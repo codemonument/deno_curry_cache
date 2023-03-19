@@ -1,5 +1,12 @@
 import { CurryCacheStorageEngine } from "../types/CurryCacheStorageEngine.ts";
-import { LocalJsonDbStorageEngineOptions } from "./LocalJsonDbStorageEngineOptions.ts";
+
+export interface LocalJsonDbStorageEngineOptions {
+  /**
+   * The file path for the db
+   */
+  dbFilePath: string;
+}
+
 
 export class LocalJsonDbStorageEngine
   implements CurryCacheStorageEngine<LocalJsonDbStorageEngineOptions> {
