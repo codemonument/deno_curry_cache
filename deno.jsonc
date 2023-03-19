@@ -1,0 +1,29 @@
+/**
+ * Deno Config File
+ * - jsonc = JSON with comments
+ * - can be expanded as needed to configure integrated tsc, linter and formatter
+ */
+{
+  /**
+     * TS Compiler Options
+     */
+  "compilerOptions": {
+    "strict": true
+  },
+
+  /**
+     *  IMPORTANT: Only use import_map.json for testing dependencies,
+     since it will not be resolved when mod.ts is used as library from outside!
+     */
+  "importMap": "import_map.json",
+
+  /**
+     * Docs for Deno Tasks: https://deno.land/manual@v1.27.1/tools/task_runner
+     */
+  "tasks": {
+    "start": "deno run --unstable example/main.ts",
+    "esm:add": "deno run -A https://esm.sh/v111 add",
+    "esm:update": "deno run -A https://esm.sh/v111 update",
+    "esm:remove": "deno run -A https://esm.sh/v111 remove"
+  }
+}
