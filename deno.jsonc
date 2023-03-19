@@ -22,6 +22,7 @@
      */
   "tasks": {
     "start": "deno run --allow-read --allow-write example/main.ts",
+    "with-generator": "deno run --allow-read --allow-write example/with-generator.ts",
     // Real Permissions:
     // --allow-read=test/data/curryCache.test.json
     // --allow-write=test/data/curryCache.test.json
