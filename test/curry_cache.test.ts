@@ -1,16 +1,5 @@
-import { curryCache } from "./curryCache.ts";
-import { assert, assertEquals, assertExists } from "../dependencies/asserts.ts";
-import { LocalFileStorageEngine } from "./local-file-storage-engine/LocalFileStorageEngine.ts";
-
-// TODO: convert Deno.test syntax to bdd style (describe & it)
-// See: https://deno.com/blog/v1.21#bdd-style-testing
-// import {
-//   afterEach,
-//   beforeEach,
-//   beforeAll,
-//   describe,
-//   it,
-// } from "../dependencies/bdd.std.ts";
+import { curryCache, LocalFileStorageEngine } from "@/mod.ts";
+import { assert, assertEquals, assertExists } from "std_testing";
 
 /**
  * Test function to be used with curryCache
