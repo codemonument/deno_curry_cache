@@ -3,3 +3,6 @@ playground/*
 dist/*
 !dist/.gitkeep
 .DS_Store
+
+test/data/*
+!test/data/.gitkeep
