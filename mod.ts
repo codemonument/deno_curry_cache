@@ -3,4 +3,4 @@
  * which should be used by other people
  */
 
-export * from "./lib/dummy.ts"
+export * from "./lib/curry_cache.ts"
