@@ -19,7 +19,7 @@ function asyncHello(toWhom: string): Promise<string> {
   return Promise.resolve(`Hello ${toWhom}!`);
 }
 
-const cacheFilePath = "./playground/curryCache.test.json";
+const cacheFilePath = "./test/data/curryCache.test.json";
 const storageEngine = new LocalFileStorageEngine({
   type: "text",
   forceCacheFilePath: cacheFilePath,

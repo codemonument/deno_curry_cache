@@ -8,7 +8,7 @@ import {
 } from "std_testing";
 
 Deno.test(`[LocalFileStorageEngine]`, async (t) => {
-  const cachePath = "./playground/LocalFileStorageEngine.test.json";
+  const cachePath = "./test/data/LocalFileStorageEngine.test.json";
   const storageEngine = new LocalFileStorageEngine({
     type: "text",
     forceCacheFilePath: cachePath,
