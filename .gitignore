@@ -6,3 +6,6 @@ dist/*
 
 test/data/*
 !test/data/.gitkeep
+
+exmaple/data/*
+!example/data/.gitkeep
