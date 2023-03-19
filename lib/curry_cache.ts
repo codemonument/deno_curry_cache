@@ -1,7 +1,9 @@
-import { CurryCacheOptions } from "./types/CurryCacheOptions.ts";
-import { CurryInputFunction } from "./types/CurryInputFunction.ts";
-import { CurryOutputFunction } from "./types/CurryOutputFunction.ts";
-import { CacheAccessOptions } from "./types/CacheAccessOptions.ts";
+import {
+  CacheAccessOptions,
+  CurryCacheOptions,
+  CurryInputFunction,
+  CurryOutputFunction,
+} from "./types.ts";
 import { defaultCacheKeyFactory } from "./defaultCacheKeyFactory.ts";
 
 /**
