@@ -1,4 +1,4 @@
-import { CurryCacheStorageEngine } from "../types/CurryCacheStorageEngine.ts";
+import { CurryCacheStorageEngine } from "../types.ts";
 import { join } from "../../deps/std.ts";
 
 export interface LocalFileStorageEngineOptions {
@@ -16,7 +16,6 @@ export interface LocalFileStorageEngineOptions {
    */
   forceCacheFilePath?: string;
 }
-
 
 export class LocalFileStorageEngine
   implements CurryCacheStorageEngine<LocalFileStorageEngineOptions> {
