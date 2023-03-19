@@ -1,4 +1,5 @@
 import {
+  AnyFunction,
   CacheAccessOptions,
   CurryCacheOptions,
   CurryInputFunction,
@@ -15,17 +16,17 @@ import { defaultCacheKeyFactory } from "./defaultCacheKeyFactory.ts";
  * CAUTION: The functions return type must be string or something which is json serializable!
  * (At least for now!)
  */
-export function curryCache<T>(
-  inputFunction: CurryInputFunction,
-  { storageEngine, overrideCacheKeyFactory }: CurryCacheOptions<T>,
-): CurryOutputFunction {
+export function curryCache<I extends AnyFunction, C>(
+  inputFunction: I,
+  { storageEngine, overrideCacheKeyFactory }: CurryCacheOptions<C>,
+): CurryOutputFunction<I> {
   const cacheKeyFactory = overrideCacheKeyFactory ?? defaultCacheKeyFactory;
 
   // This is the wrapper function arount the inputFunction which deals with the caching
-  return async (
-    callArgs: Parameters<CurryInputFunction>,
+  async function callWithArgs(
+    callArgs: Parameters<I>,
     options?: CacheAccessOptions,
-  ) => {
+  ) {
     // Note: when you have two input functions with the same name and the same storageEngine,
     // you can add an customCacheKeyPostfix to differentiate them from each other
     const { customCacheKeyPostfix } = options || {};
@@ -51,5 +52,7 @@ export function curryCache<T>(
 
     const jsObject = JSON.parse(cacheContentString);
     return jsObject;
-  };
+  }
+
+  return callWithArgs;
 }

@@ -1,3 +1,5 @@
+export type AnyFunction = (...args: any[]) => any;
+
 /**
  * These options can be used to alter the behavior of a function curried by corryCache function.
  */
@@ -98,15 +100,16 @@ export interface CurryCacheOptions<StorageEngineOptions> {
  * because index signature for string is missing. (Problem: I don't want to allow arbitrary indexes on ModuleLink)
  * TODO: maybe find better typing in type-fest library to allow this !
  */
-export type CurryInputFunction = (
-  ...args: any[]
-) => any | Promise<any>;
+export type CurryInputFunction = AnyFunction;
+// (
+//   ...args: any[]
+// ) => any | Promise<any>;
 
 /**
  * Explanation for this higher order typings:
  * https://spin.atomicobject.com/2019/01/11/typescript-higher-order-functions/
  */
-export type CurryOutputFunction = <T extends CurryInputFunction>(
-  argsForCurryInputFunction: Parameters<T>,
+export type CurryOutputFunction<I extends AnyFunction> = (
+  argsForCurryInputFunction: Parameters<I>,
   options?: CacheAccessOptions,
-) => Promise<ReturnType<T>>;
+) => Promise<ReturnType<I>>;
