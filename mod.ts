@@ -4,5 +4,8 @@
  */
 
 export * from "./lib/curry_cache.ts"
-export * from "./lib/local-file-storage-engine/LocalFileStorageEngine.ts"
-export * from "./lib/local-json-db-storage-engine/LocalJsonDbStorageEngine.ts"
+export * from "./lib/storage/local_file_storage_engine.ts"
+
+
+// This engine is work in progess! (WIP)
+// export * from "./lib/storage/local_json_db_storage_engine.ts"
