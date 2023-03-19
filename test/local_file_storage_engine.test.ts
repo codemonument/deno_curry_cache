@@ -1,11 +1,11 @@
-import { LocalFileStorageEngine } from "./LocalFileStorageEngine.ts";
+import { LocalFileStorageEngine } from "@/mod.ts";
 import {
   assert,
   assertEquals,
   assertExists,
   assertRejects,
   assertThrows,
-} from "../../dependencies/asserts.ts";
+} from "std_testing";
 
 Deno.test(`[LocalFileStorageEngine]`, async (t) => {
   const cachePath = "./playground/LocalFileStorageEngine.test.json";
@@ -21,7 +21,7 @@ Deno.test(`[LocalFileStorageEngine]`, async (t) => {
   await t.step(
     `LocalFileStorageEngine Constructor throws on option - type: 'binary'`,
     () => {
-      return assertThrows(() => new LocalFileStorageEngine({ type: "binary" }));
+      assertThrows(() => new LocalFileStorageEngine({ type: "binary" }));
     },
   );
 
@@ -37,7 +37,7 @@ Deno.test(`[LocalFileStorageEngine]`, async (t) => {
 
   await t.step(`clearCache removes cache file`, async () => {
     await storageEngine.clearCache();
-    return assertRejects(() => Deno.stat(cachePath));
+    assertRejects(() => Deno.stat(cachePath));
   });
 
   await t.step(
