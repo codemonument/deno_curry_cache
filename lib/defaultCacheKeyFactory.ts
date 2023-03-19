@@ -1,4 +1,4 @@
-import { CacheKeyParts } from "./types/CacheKeyParts.ts";
+import { CacheKeyParts } from "./types.ts";
 import "https://raw.githubusercontent.com/puleos/object-hash/master/dist/object_hash.js";
 
 //@ts-ignore: oject_hash is a global variable when using the browser variant
