@@ -39,6 +39,14 @@
     "https://deno.land/std@0.180.0/testing/bdd.ts": "c5ca6d85940dbcc19b4d2bc3608d49ab65d81470aa91306d5efa4b0d5c945731",
     "https://deno.land/std@0.180.0/testing/snapshot.ts": "df277f1fc45da1b1274f1be339efb23cd5635fe98b8899be8de11b38a9be25cf",
     "https://deno.land/std@0.180.0/types.d.ts": "220ed56662a0bd393ba5d124aa6ae2ad36a00d2fcbc0e8666a65f4606aaa9784",
+    "https://esm.sh/v110/@kvs/memorystorage@2.1.3": "dfee9d57376884f07193321da4ba30b6255ed4512da2af4ee35bf224e54c3f46",
+    "https://esm.sh/v110/@kvs/memorystorage@2.1.3/deno/memorystorage.js": "67f5d316d94cfa947453738f890377d7ecb41e9391c0d569838ea06a6d00ac2d",
+    "https://esm.sh/v110/@kvs/memorystorage@2.1.3/lib/index.d.ts": "a77c1c976400c81d05fe8d95770cd4a3600d57bfd5aa7e79241a24731ca4c191",
+    "https://esm.sh/v110/@kvs/storage@2.1.3/deno/storage.js": "7d80e814646c4854742a6acb8c535f5dc4e61dcd055a0f45df76bb7c7c6c897c",
+    "https://esm.sh/v110/@kvs/storage@2.1.3/lib/JSONValue.d.ts": "b84578798b71644d6bbaa44d3acd3c8f6b373cbd037ac2ebf5bbfdcf364449e0",
+    "https://esm.sh/v110/@kvs/storage@2.1.3/lib/index.d.ts": "12dd0b1391c48105f39b0782c131094df6448abb1a5c136c58336d3d46c8e251",
+    "https://esm.sh/v110/@kvs/storage@2.1.3/lib/storage.d.ts": "78a2bd33d1ba104a4d5b8756dca2286e477505c6186e57ecb3d05490195baba0",
+    "https://esm.sh/v110/@kvs/types@2.1.1/lib/index.d.ts": "a95ae58717048156448935975784f8ea66624cd9fcc93dfac0edaa62505b2c90",
     "https://raw.githubusercontent.com/puleos/object-hash/master/dist/object_hash.js": "3bb38b9ae6002158700d776f34a2ebd2225f1bb1f41d9e91e286d69cf85bec98"
   }
 }
