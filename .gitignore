@@ -9,3 +9,7 @@ test/data/*
 
 exmaple/data/*
 !example/data/.gitkeep
+
+# Ignore .env to be able to store db access data in there!
+# Can be loaded via https://deno.land/x/dot_env@0.2.0
+.env 
