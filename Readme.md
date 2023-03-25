@@ -8,6 +8,11 @@ Has an interface to allow providing your own store!
 See ./example/main.ts!  
 Run this with `deno task start`!
 
+## Testing 
+
+- Note: To run the planetscale storage engine tests, you need a planetscale database with admin credentials
+  (admin bc. clearCache() runs a TRUNCATE TABLE internally)
+
 ## Missing Things 
 
 - force invalidation via options-param when invoking a curryCached function 
