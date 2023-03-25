@@ -30,7 +30,8 @@
     // --allow-read=test/data/LocalFileStorageEngine.test.json
     // --allow-write=./test/data/LocalFileStorageEngine.test.json
     // --allow-env=HOME,PLANETSCALE_HOST,PLANETSCALE_USER,PLANETSCALE_PASSWD
-    "test": "deno test --allow-read --allow-write --allow-env",
+    // --allow-net=eu-central.connect.psdb.cloud
+    "test": "deno test --allow-read --allow-write --allow-env --allow-net",
     "esm:add": "deno run -A https://esm.sh/v111 add",
     "esm:update": "deno run -A https://esm.sh/v111 update",
     "esm:remove": "deno run -A https://esm.sh/v111 remove"

@@ -2,7 +2,8 @@
   "imports": {
     "@/": "./",
     "std_testing": "./test/utils/std_testing.ts",
-    "tsd": "https://esm.sh/v111/*tsd@0.28.0"
+    "tsd": "https://esm.sh/v111/*tsd@0.28.0",
+    "envy": "https://deno.land/x/envy@0.1.1/mod.ts"
   },
   "scopes": {
     "https://esm.sh/v111/": {
