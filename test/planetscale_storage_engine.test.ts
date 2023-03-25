@@ -64,3 +64,23 @@ Deno.test({
     await storage.clearCache();
   },
 });
+
+Deno.test({
+  name: `Test writeCache`,
+  ignore: host === "" || username === "" || password === "",
+  fn: async () => {
+    const cacheObject = {
+      "massCacheTest1": "massCacheTest1",
+      "massCacheTest2": "massCacheTest2",
+      "massCacheTest3": "massCacheTest3",
+    };
+
+    await storage.writeCache(cacheObject);
+
+    const response = await storage.readCache();
+    assertEquals(response, cacheObject);
+
+    // cleanup
+    await storage.clearCache();
+  },
+});

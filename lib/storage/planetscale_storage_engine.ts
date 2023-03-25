@@ -78,8 +78,21 @@ export class PlanetscaleStorageEngine
   }
 
   async writeCache(cacheObject: Record<string, string>): Promise<void> {
-    throw new Error("Method not implemented.");
+    const sql = [`INSERT INTO ${this.table} (cacheKey, value) 
+    VALUES `];
+    const sqlRows = [];
+    const sqlParams = [];
+
+    for (const [cacheKey, value] of Object.entries(cacheObject)) {
+      sqlRows.push(`(?,?)`);
+      sqlParams.push(cacheKey, value);
+    }
+
+    sql.push(sqlRows.join(`,
+    `));
+    await this.db.execute(sql.join(""), sqlParams);
   }
+
   async writeCacheEntry(cacheKey: string, content: string): Promise<void> {
     await this.db.execute(
       `INSERT INTO ${this.table} (cacheKey, value)
