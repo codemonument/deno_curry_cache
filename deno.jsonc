@@ -24,11 +24,13 @@
     "start": "deno run --allow-read --allow-write example/main.ts",
     "with-generator": "deno run --allow-read --allow-write example/with-generator.ts",
     // Real Permissions:
+    // --allow-read=./ (for .env file)
     // --allow-read=test/data/curryCache.test.json
     // --allow-write=test/data/curryCache.test.json
     // --allow-read=test/data/LocalFileStorageEngine.test.json
     // --allow-write=./test/data/LocalFileStorageEngine.test.json
-    "test": "deno test --allow-read --allow-write",
+    // --allow-env=HOME,PLANETSCALE_HOST,PLANETSCALE_USER,PLANETSCALE_PASSWD
+    "test": "deno test --allow-read --allow-write --allow-env",
     "esm:add": "deno run -A https://esm.sh/v111 add",
     "esm:update": "deno run -A https://esm.sh/v111 update",
     "esm:remove": "deno run -A https://esm.sh/v111 remove"
