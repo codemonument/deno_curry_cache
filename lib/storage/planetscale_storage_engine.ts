@@ -18,27 +18,39 @@ export type PlanetscaleStorageEngineOptions = {
 
 /**
  * This Storage engine expects a planetscale table to exist of the form:
- * 
+ *
   CREATE TABLE IF NOT EXISTS deno_curry_cache_library (
-    cacheKey VARCHAR(250) PRIMARY KEY, 
+    cacheKey VARCHAR(250) PRIMARY KEY,
     value TEXT
   );
  */
 export class PlanetscaleStorageEngine
   implements CurryCacheStorageEngine<PlanetscaleStorageEngineOptions> {
   db;
+  table;
 
   constructor(public engineOptions: PlanetscaleStorageEngineOptions) {
-    this.db = connect(engineOptions);
+    this.db = connect({
+      host: engineOptions.host,
+      username: engineOptions.username,
+      password: engineOptions.password,
+    });
+    this.table = engineOptions.tableName;
   }
 
   async readCacheEntry(cacheKey: string): Promise<string | undefined> {
     await ensureCacheTable(this.db, this.engineOptions.tableName);
     throw new Error("Method not implemented.");
   }
+
   async readCache(): Promise<Record<string, string> | undefined> {
-    await ensureCacheTable(this.db, this.engineOptions.tableName);
-    throw new Error("Method not implemented.");
+    const result = await this.db.execute(`SELECT * FROM ${this.table}`, {
+      as: "array",
+    });
+
+    console.log(result);
+
+    return {};
   }
   async clearCache(): Promise<void> {
     await ensureCacheTable(this.db, this.engineOptions.tableName);
