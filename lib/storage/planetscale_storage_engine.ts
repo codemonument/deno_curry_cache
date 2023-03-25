@@ -97,6 +97,8 @@ export class PlanetscaleStorageEngine
 
     sql.push(sqlRows.join(`,
     `));
+    sql.push(`
+    ON DUPLICATE KEY UPDATE value = VALUES(value);`);
     await this.db.execute(sql.join(""), sqlParams);
   }
 

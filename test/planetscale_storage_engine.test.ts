@@ -93,10 +93,17 @@ Deno.test({
       "massCacheTest3": "massCacheTest3",
     };
 
+    const updatedCacheObject = {
+      "massCacheTest1": "massCacheTest4",
+      "massCacheTest2": "massCacheTest5",
+      "massCacheTest3": "massCacheTest6",
+    };
+
     await storage.writeCache(cacheObject);
+    await storage.writeCache(updatedCacheObject);
 
     const response = await storage.readCache();
-    assertEquals(response, cacheObject);
+    assertEquals(response, updatedCacheObject);
 
     // cleanup
     await storage.clearCache();
