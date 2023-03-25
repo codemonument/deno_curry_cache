@@ -1,6 +1,5 @@
 import { CurryCacheStorageEngine } from "../types.ts";
 import { connect } from "../../deps/planetscale.ts";
-import { ensureCacheTable } from "./planetscale_utils.ts";
 
 export type PlanetscaleStorageEngineOptions = {
   /**

@@ -1,5 +1,9 @@
 # Changelog 
 
+## 0.3.1 - 2023-03-25
+
+- Bugfix: remove broken import in planetscale_storage_engine
+
 ## 0.3.0 - 2023-03-25
 
 - Add another storage backend: PlanetscaleStorageEngine => Storing your cache in a planetscale db table with the ultra fast @planetscale/database driver!
