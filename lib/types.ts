@@ -46,6 +46,18 @@ export interface CurryCacheStorageEngine<StorageEngineOptions> {
   readCacheEntry(cacheKey: string): Promise<string | undefined>;
 
   /**
+   * Overwrites one record entry in the cache
+   * @param cacheKey
+   * @param content
+   */
+  writeCacheEntry(cacheKey: string, content: string): Promise<void>;
+
+  /**
+   * Clears the complete cache in this storageEngine instance
+   */
+  clearCache(): Promise<void>;
+
+  /**
    * Returns the whole cache as js object Record of
    * string cache keys => string content
    * Note: string content can be any string, but will likely be
@@ -57,22 +69,10 @@ export interface CurryCacheStorageEngine<StorageEngineOptions> {
   readCache(): Promise<Record<string, string> | undefined>;
 
   /**
-   * Clears the complete cache in this storageEngine instance
-   */
-  clearCache(): Promise<void>;
-
-  /**
    * Overwrites the whole cache
    * @param cacheObject
    */
   writeCache(cacheObject: Record<string, string>): Promise<void>;
-
-  /**
-   * Overwrites one record entry in the cache
-   * @param cacheKey
-   * @param content
-   */
-  writeCacheEntry(cacheKey: string, content: string): Promise<void>;
 }
 
 export interface CurryCacheOptions<StorageEngineOptions> {
