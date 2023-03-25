@@ -22,6 +22,10 @@ export type PlanetscaleStorageEngineOptions = {
     cacheKey VARCHAR(250) PRIMARY KEY,
     value TEXT
   );
+ *
+ * NOTE: The TEXT datatype has space for around 65 000 chars. If you need more, use:
+ * - MEDIUMTEXT: at around 16 MiB
+ * - LONGTEXT: at around 4 GiB
  */
 export class PlanetscaleStorageEngine
   implements CurryCacheStorageEngine<PlanetscaleStorageEngineOptions> {
