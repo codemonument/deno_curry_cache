@@ -2,7 +2,6 @@
  * Tests the "importability" for all dependencies needed for planetscale
  */
 import { load } from "envy";
-
 import { connect } from "@/deps/planetscale.ts";
 import { assert, assertEquals, assertStrictEquals } from "std_testing";
 
