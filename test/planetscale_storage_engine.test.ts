@@ -2,17 +2,65 @@
  * This file tests the planetscale storage engine for curryCache
  */
 
-import "https://deno.land/x/dot_env@0.2.0/load.ts";
-import { assert } from "std_testing";
+import { load } from "envy";
+import { assert, assertEquals } from "std_testing";
+import { PlanetscaleStorageEngine } from "../lib/storage/planetscale_storage_engine.ts";
 
-const dbHost = Deno.env.get("PLANETSCALE_HOST");
-const dbUser = Deno.env.get("PLANETSCALE_USER");
-const dbPasswd = Deno.env.get("PLANETSCALE_PASSWD");
+const env = await load();
+const host = env["PLANETSCALE_HOST"] ?? "";
+const username = env["PLANETSCALE_USER"] ?? "";
+const password = env["PLANETSCALE_PASSWD"] ?? "";
 
 Deno.test({
   name: `Planetscale Tests can run when env vars are available `,
-  ignore: !dbHost || !dbUser || !dbPasswd,
+  ignore: !host || !username || !password,
   fn: () => {
     assert(true);
+  },
+});
+
+const storage = new PlanetscaleStorageEngine({
+  host,
+  username,
+  password,
+  tableName: "deno_curry_cache_library",
+});
+
+Deno.test({
+  name: `Test readCache()`,
+  ignore: host === "" || username === "" || password === "",
+  fn: async () => {
+    const result = await storage.readCache();
+    console.log(result);
+    assert(result);
+  },
+});
+
+Deno.test({
+  name: `Test clearCache()`,
+  ignore: host === "" || username === "" || password === "",
+  fn: async () => {
+    await storage.clearCache();
+    const result = await storage.readCache();
+
+    console.log(result);
+    assert(result !== undefined);
+    assert(Object.keys(result).length === 0);
+  },
+});
+
+Deno.test({
+  name: `Test writeCacheEntry & readCacheEntry`,
+  ignore: host === "" || username === "" || password === "",
+  fn: async () => {
+    const testKey = "cacheKey-Test1";
+    const testValue = "Test writeCacheEntry";
+    await storage.writeCacheEntry(testKey, testValue);
+
+    const response = await storage.readCacheEntry(testKey);
+    assertEquals(response, testValue);
+
+    // cleanup
+    await storage.clearCache();
   },
 });
