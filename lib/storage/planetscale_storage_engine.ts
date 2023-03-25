@@ -39,29 +39,51 @@ export class PlanetscaleStorageEngine
   }
 
   async readCacheEntry(cacheKey: string): Promise<string | undefined> {
-    await ensureCacheTable(this.db, this.engineOptions.tableName);
-    throw new Error("Method not implemented.");
+    const result = await this.db.execute(
+      `SELECT * FROM ${this.table} WHERE cacheKey=?`,
+      [cacheKey],
+      {
+        as: "array",
+      },
+    );
+
+    console.log(result.rows);
+
+    return "";
   }
 
+  /**
+   * CAUTION: Can possibly contain A shitload of data!
+   * @returns The full cache as Record<string, string>
+   */
   async readCache(): Promise<Record<string, string> | undefined> {
     const result = await this.db.execute(`SELECT * FROM ${this.table}`, {
       as: "array",
     });
 
-    console.log(result);
+    const cache: Record<string, string> = {};
 
-    return {};
+    for (const row of result.rows) {
+      const typedRow = row as { cacheKey: string; value: string };
+      cache[typedRow.cacheKey] = typedRow.value;
+    }
+
+    console.log(cache);
+    return cache;
   }
+  
   async clearCache(): Promise<void> {
     await ensureCacheTable(this.db, this.engineOptions.tableName);
     throw new Error("Method not implemented.");
   }
   async writeCache(cacheObject: Record<string, string>): Promise<void> {
-    await ensureCacheTable(this.db, this.engineOptions.tableName);
     throw new Error("Method not implemented.");
   }
   async writeCacheEntry(cacheKey: string, content: string): Promise<void> {
-    await ensureCacheTable(this.db, this.engineOptions.tableName);
-    throw new Error("Method not implemented.");
+    await this.db.execute(
+      `INSERT INTO ${this.table} (cacheKey, value)
+     VALUES (? , ?)`,
+      [cacheKey, content],
+    );
   }
 }
