@@ -1,5 +1,9 @@
 # Changelog 
 
+## 0.4.0 - 2023-03-25 (WIP)
+
+- Add update mechanism for planetscale_storage_engine's writeCacheEntry function
+
 ## 0.3.1 - 2023-03-25
 
 - Bugfix: remove broken import in planetscale_storage_engine

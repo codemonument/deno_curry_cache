@@ -26,8 +26,8 @@ export type PlanetscaleStorageEngineOptions = {
  * NOTE: The TEXT datatype has space for around 65 000 chars. If you need more, use:
  * - MEDIUMTEXT: at around 16 MiB
  * - LONGTEXT: at around 4 GiB
- * 
- * If you need to change the datatype, use 
+ *
+ * If you need to change the datatype, use
    ALTER TABLE deno_curry_cache_library
    MODIFY COLUMN value MEDIUMTEXT;
  */
@@ -103,7 +103,7 @@ export class PlanetscaleStorageEngine
   async writeCacheEntry(cacheKey: string, content: string): Promise<void> {
     await this.db.execute(
       `INSERT INTO ${this.table} (cacheKey, value)
-     VALUES (? , ?)`,
+      VALUES (? , ?) ON DUPLICATE KEY UPDATE value = VALUES(value)`,
       [cacheKey, content],
     );
   }

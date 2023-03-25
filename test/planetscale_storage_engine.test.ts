@@ -61,6 +61,24 @@ Deno.test({
     assertEquals(response, testValue);
 
     // cleanup
+    // await storage.clearCache();
+  },
+});
+
+Deno.test({
+  name: `Test update functionality of writeCacheEntry`,
+  ignore: host === "" || username === "" || password === "",
+  fn: async () => {
+    const testKey = "cacheKey-Test1";
+    const testValue = "Test writeCacheEntry";
+    const testValueUpdated = "Test update function of writeCacheEntry";
+    await storage.writeCacheEntry(testKey, testValue);
+    await storage.writeCacheEntry(testKey, testValueUpdated);
+
+    const response = await storage.readCacheEntry(testKey);
+    assertEquals(response, testValueUpdated);
+
+    // cleanup
     await storage.clearCache();
   },
 });
