@@ -3,6 +3,7 @@ import {
   curryCache,
   KvsMemoryStorageEngine,
   LocalFileStorageEngine,
+  PlanetscaleStorageEngine,
 } from "@/mod.ts";
 
 describe(`mod.ts`, () => {
@@ -10,5 +11,6 @@ describe(`mod.ts`, () => {
     assert(curryCache);
     assert(LocalFileStorageEngine);
     assert(KvsMemoryStorageEngine);
+    assert(PlanetscaleStorageEngine);
   });
 });
