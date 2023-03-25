@@ -26,6 +26,10 @@ export type PlanetscaleStorageEngineOptions = {
  * NOTE: The TEXT datatype has space for around 65 000 chars. If you need more, use:
  * - MEDIUMTEXT: at around 16 MiB
  * - LONGTEXT: at around 4 GiB
+ * 
+ * If you need to change the datatype, use 
+   ALTER TABLE deno_curry_cache_library
+   MODIFY COLUMN value MEDIUMTEXT;
  */
 export class PlanetscaleStorageEngine
   implements CurryCacheStorageEngine<PlanetscaleStorageEngineOptions> {
