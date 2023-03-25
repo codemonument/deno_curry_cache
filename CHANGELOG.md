@@ -1,6 +1,6 @@
 # Changelog 
 
-## 0.4.0 - 2023-03-25 (WIP)
+## 0.4.0 - 2023-03-25
 
 - Add update mechanism for planetscale_storage_engine's writeCacheEntry function (single row update)
 - Add update mechanism for planetscale_storage_engine's writeCache function (multi row update)
