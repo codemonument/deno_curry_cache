@@ -43,13 +43,15 @@ export class PlanetscaleStorageEngine
       `SELECT * FROM ${this.table} WHERE cacheKey=?`,
       [cacheKey],
       {
+        // as object: e.g. {col1:string, val1: ???}[]
+        // as array: e.g. [string, string][]
         as: "array",
       },
     );
 
-    console.log(result.rows);
-
-    return "";
+    const typedRows = result.rows as [string, string][];
+    if (typedRows.length === 0) return undefined;
+    return typedRows[0][1];
   }
 
   /**
@@ -68,14 +70,13 @@ export class PlanetscaleStorageEngine
       cache[typedRow.cacheKey] = typedRow.value;
     }
 
-    console.log(cache);
     return cache;
   }
-  
+
   async clearCache(): Promise<void> {
-    await ensureCacheTable(this.db, this.engineOptions.tableName);
-    throw new Error("Method not implemented.");
+    await this.db.execute(`TRUNCATE TABLE ${this.table}`);
   }
+
   async writeCache(cacheObject: Record<string, string>): Promise<void> {
     throw new Error("Method not implemented.");
   }
