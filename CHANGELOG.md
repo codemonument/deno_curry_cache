@@ -1,5 +1,10 @@
 # Changelog 
 
+## 0.5.0-rc.1 - 2023-07-30
+
+- Implement first version of DenoKvStorageEngine. Still misses 
+  - unit tests
+
 ## 0.4.0 - 2023-03-25
 
 - Add update mechanism for planetscale_storage_engine's writeCacheEntry function (single row update)

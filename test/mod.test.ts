@@ -1,6 +1,7 @@
 import { assert, describe, it } from "std_testing";
 import {
   curryCache,
+  DenoKvStorageEngine,
   KvsMemoryStorageEngine,
   LocalFileStorageEngine,
   PlanetscaleStorageEngine,
@@ -12,5 +13,6 @@ describe(`mod.ts`, () => {
     assert(LocalFileStorageEngine);
     assert(KvsMemoryStorageEngine);
     assert(PlanetscaleStorageEngine);
+    assert(DenoKvStorageEngine);
   });
 });

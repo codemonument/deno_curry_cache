@@ -8,3 +8,4 @@ export * from "./lib/types.ts";
 export * from "./lib/storage/local_file_storage_engine.ts";
 export * from "./lib/storage/kvs_memory_storage_engine.ts";
 export * from "./lib/storage/planetscale_storage_engine.ts";
+export * from "./lib/storage/deno_kv_storage_engine.ts";
