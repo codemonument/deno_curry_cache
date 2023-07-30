@@ -1,5 +1,9 @@
 # Changelog 
 
+## 0.5.0-rc.2 - 2023-07-30
+
+- fix import problem in deno_kv_storage_engine
+
 ## 0.5.0-rc.1 - 2023-07-30
 
 - Implement first version of DenoKvStorageEngine. Still misses 

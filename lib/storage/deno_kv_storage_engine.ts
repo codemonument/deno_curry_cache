@@ -1,4 +1,4 @@
-import { CurryCacheStorageEngine } from "@/mod.ts";
+import { CurryCacheStorageEngine } from "../types.ts";
 
 export interface DenoKvStorageEngineOptions {
   /**
