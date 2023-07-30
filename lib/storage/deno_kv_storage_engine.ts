@@ -11,6 +11,7 @@ export interface DenoKvStorageEngineOptions {
  * Todo: Write unit tests for this implementation!
  * Todo: Test performance of this implementation!
  * Todo: Test correctness of this implementation!
+ * TODO: fix: clear Cache: need to delete each key with a value individually!
  */
 export class DenoKvStorageEngine
   implements CurryCacheStorageEngine<DenoKvStorageEngineOptions> {
