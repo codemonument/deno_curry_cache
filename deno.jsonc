@@ -19,7 +19,7 @@
      * Docs for Deno Tasks: https://deno.land/manual@v1.27.1/tools/task_runner
      */
   "tasks": {
-    "start": "deno run --allow-read --allow-write example/main.ts",
+    "start": "deno run --unstable --allow-read --allow-write example/main.ts",
     "with-generator": "deno run --allow-read --allow-write example/with-generator.ts",
     // Real Permissions:
     // --allow-read=./ (for .env file)

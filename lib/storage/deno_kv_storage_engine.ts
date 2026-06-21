@@ -1,18 +1,15 @@
 import { CurryCacheStorageEngine } from "../types.ts";
+import { kvsMemoryStorage } from "../../deps/kvs-memory-storage.ts";
 
 export interface DenoKvStorageEngineOptions {
   /**
-   * The name for the Deno.KV store
+   * The name for the in-mem kvs
    */
   name: string;
 }
 
-/**
- * Todo: Write unit tests for this implementation!
- * Todo: Test performance of this implementation!
- * Todo: Test correctness of this implementation!
- * TODO: fix: clear Cache: need to delete each key with a value individually!
- */
+const kvPrefix = "curry_cache";
+
 export class DenoKvStorageEngine
   implements CurryCacheStorageEngine<DenoKvStorageEngineOptions> {
   storePromise;
@@ -23,52 +20,60 @@ export class DenoKvStorageEngine
     this.storePromise = Deno.openKv();
   }
 
-  async readCacheEntry(cacheKey: string): Promise<string | undefined> {
-    const store = await this.storePromise;
-    const kvKey = ["curry-cache", this.engineOptions.name, cacheKey];
-    const kvResponse = await store.get<string>(kvKey);
-    return kvResponse.value ?? undefined;
-  }
-
   async writeCacheEntry(cacheKey: string, content: string): Promise<void> {
     const store = await this.storePromise;
-    const kvKey = ["curry-cache", this.engineOptions.name, cacheKey];
-    const kvResponse = await store.set(kvKey, content);
+    await store.set([kvPrefix, cacheKey], content);
+  }
 
-    if (!kvResponse.ok) {
+  async readCacheEntry(cacheKey: string): Promise<string | undefined> {
+    const store = await this.storePromise;
+    const res = await store.get([kvPrefix, cacheKey]) ?? undefined;
+    if (typeof res.value !== "string") {
       console.error(
-        `Error while writing cache entry into deno kv!`,
-        kvResponse,
+        `Deno KV Store returns a non-string value despite only having had string to store before`,
       );
+      return undefined;
     }
+    return res.value;
   }
 
   async clearCache(): Promise<void> {
     const store = await this.storePromise;
-    const kvKey = ["curry-cache", this.engineOptions.name];
-
-    await store.delete(kvKey);
+    await store.delete([kvPrefix]);
   }
 
+  /**
+   * @deprecated KVS Memory store has no method of setting the whole cache at once!
+   * @throws Error
+   */
+  async writeCache(cacheObject: Record<string, string>): Promise<void> {
+    const store = await this.storePromise;
+
+    const transaciton = store.atomic();
+
+    for (const [key, val] of Object.entries(cacheObject)) {
+      transaciton.set([kvPrefix, key], val);
+    }
+
+    const res = await transaciton.commit();
+
+    if (res === null) throw new Error(`Error while inserting into Deno KV!`);
+  }
+
+  /**
+   * @deprecated KVS Memory store has no method of getting the whole cache as an object!
+   * @throws Error
+   */
   async readCache(): Promise<Record<string, string> | undefined> {
     const store = await this.storePromise;
-    const kvKey = ["curry-cache", this.engineOptions.name];
+    const iterator = store.list({prefix: [kvPrefix]})
 
-    const result: Record<string, string> = {};
+    store.getMany([kvPrefix])
 
-    for await (const entry of store.list({ prefix: kvKey })) {
-      if (typeof entry.value === "string" && typeof entry.key[2] === "string") {
-        const cacheKey = entry.key[2];
-        result[cacheKey] = entry.value;
-      }
+    for await (const entry of iterator) {
+
     }
 
-    return result;
-  }
 
-  async writeCache(cacheObject: Record<string, string>): Promise<void> {
-    for (const [cacheKey, content] of Object.entries(cacheObject)) {
-      await this.writeCacheEntry(cacheKey, content);
-    }
   }
 }
