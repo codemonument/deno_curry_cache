@@ -1,19 +1,16 @@
 /**
  * Tests the "importability" for all dependencies needed for planetscale
  */
-import { load } from "envy";
 import { connect } from "@/deps/planetscale.ts";
 import { assert, assertEquals, assertStrictEquals } from "std_testing";
-
-const env = await load();
 
 Deno.test(`Testing "importability" of planetscale http driver`, () => {
   assert(connect);
 });
 
-const host = env["PLANETSCALE_HOST"] ?? "";
-const username = env["PLANETSCALE_USER"] ?? "";
-const password = env["PLANETSCALE_PASSWD"] ?? "";
+const host = Deno.env.get("PLANETSCALE_HOST") ?? "";
+const username = Deno.env.get("PLANETSCALE_USER") ?? "";
+const password = Deno.env.get("PLANETSCALE_PASSWD") ?? "";
 
 Deno.test({
   name: `Testing connection to planetscale`,

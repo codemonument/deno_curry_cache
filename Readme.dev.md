@@ -38,6 +38,77 @@ A template repo for developing modules with deno.
 see `tasks` property in `deno.jsonc`
 Run each key there with `deno task <task-key>`
 
+## Environment
+
+Environment configuration is documented in the committed `.env.schema`. The
+committed `.env.jb` file contains resolver references only, not plaintext
+secrets. Real local env files stay gitignored.
+
+For optional PlanetScale integration tests, provide `PLANETSCALE_HOST`,
+`PLANETSCALE_USER`, and `PLANETSCALE_PASSWD` locally. Keep production and CI
+using platform secrets with those same env var names.
+
+Select the JB profile on each machine with a gitignored `.env.local` file:
+
+```env
+DEV_ENV=jb
+```
+
+Do not put the selector in `.env.jb`; `.env.local` is the machine-local profile
+selector.
+
+On JB macOS machines, `.env.jb` resolves local dev secrets from project/profile
+scoped Keychain items via the jb-dev-env `exec(security ...)` fallback:
+
+- service: `varlock`
+- account: `deno_curry_cache:jb:<ENV_VAR_NAME>`
+- label/comment/metadata when supported: `/Users/bjesuiter/Develop/codemonument/deno_curry_cache`
+
+Varlock's current `keychain()` resolver supports explicit `service` and
+`account` arguments, but it could not read the currently seeded Keychain items
+for this repo. The committed profile therefore uses `exec("security
+find-generic-password ... -w")` as a temporary fallback. This bypasses
+VarlockEnclave, so prefer migrating back to Varlock-native `keychain(...)` after
+creating compatible items with `keychain(prompt)`.
+
+Varlock does not expose a documented argument for writing Keychain label/comment
+metadata, so the project scope must be encoded in the account identifier itself.
+The exported environment variable name remains the plain variable name.
+
+It also does not expose a documented argument for customizing the
+`keychain(prompt)` picker heading/title. Current prompt mode passes only the env
+var key to the picker, so headings can remain ambiguous, such as
+`Select Keychain Item for PLANETSCALE_USER`. If upstream Varlock/Warlock adds a
+custom prompt/title API, use a title like
+`Select Keychain Item for PLANETSCALE_USER in deno_curry_cache` and supporting
+text containing `/Users/bjesuiter/Develop/codemonument/deno_curry_cache` and
+`local dev`.
+
+Use an ignored local env file such as `.env.local` with explicit resolver
+references:
+
+```env
+DEV_ENV=jb
+```
+
+The committed `.env.jb` profile contains:
+
+```env
+PLANETSCALE_USER=exec("security find-generic-password -s varlock -a \"deno_curry_cache:jb:PLANETSCALE_USER\" -w")
+PLANETSCALE_PASSWD=exec("security find-generic-password -s varlock -a \"deno_curry_cache:jb:PLANETSCALE_PASSWD\" -w")
+```
+
+If you use `keychain(prompt)` to create or select the items first, do not rely
+on its heading/title for provenance. Selectable item labels, service, and
+account must still make provenance clear: variable name, project slug
+`deno_curry_cache`, profile `jb`, absolute repo path
+`/Users/bjesuiter/Develop/codemonument/deno_curry_cache`, and that this is a
+local dev secret. Do not use one global Keychain item keyed only by env var
+name.
+
+Run Deno tasks through the configured task wrappers so Varlock resolves and
+validates the environment before Deno starts.
+
 ## Configure Deployments to deno.land/x 
 
 see https://deno.land/add_module

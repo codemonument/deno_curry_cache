@@ -2,14 +2,12 @@
  * This file tests the planetscale storage engine for curryCache
  */
 
-import { load } from "envy";
 import { assert, assertEquals } from "std_testing";
 import { PlanetscaleStorageEngine } from "../lib/storage/planetscale_storage_engine.ts";
 
-const env = await load();
-const host = env["PLANETSCALE_HOST"] ?? "";
-const username = env["PLANETSCALE_USER"] ?? "";
-const password = env["PLANETSCALE_PASSWD"] ?? "";
+const host = Deno.env.get("PLANETSCALE_HOST") ?? "";
+const username = Deno.env.get("PLANETSCALE_USER") ?? "";
+const password = Deno.env.get("PLANETSCALE_PASSWD") ?? "";
 
 Deno.test({
   name: `Planetscale Tests can run when env vars are available `,
